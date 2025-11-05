@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Giriş Yap - Mini Server</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>🔐 Giriş Yap</h1>
+        
+        <div class="card">
+            <form id="loginForm">
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" required placeholder="test@example.com">
+                </div>
+                
+                <div class="form-group">
+                    <label for="password">Şifre</label>
+                    <input type="password" id="password" required placeholder="Şifreniz">
+                </div>
+                
+                <button type="submit" class="btn btn-primary btn-block">Giriş Yap</button>
+            </form>
+            
+            <div id="message" class="message"></div>
+            
+            <div class="links">
+                <a href="register.html">Hesabın yok mu? Kayıt ol</a>
+                <a href="index.html">Ana Sayfa</a>
+            </div>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+    <script>
+        document.getElementById('loginForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+            const messageDiv = document.getElementById('message');
+            
+            messageDiv.textContent = 'Giriş yapılıyor...';
+            messageDiv.className = 'message info';
+            
+            try {
+                const response = await login(email, password);
+                if (response.success) {
+                    messageDiv.textContent = '✅ Giriş başarılı! Yönlendiriliyorsunuz...';
+                    messageDiv.className = 'message success';
+                    localStorage.setItem('token', response.data.token);
+                    localStorage.setItem('user', JSON.stringify(response.data.user));
+                    
+                    setTimeout(() => {
+                        window.location.href = 'items.html';
+                    }, 1500);
+                }
+            } catch (error) {
+                messageDiv.textContent = '❌ ' + error.message;
+                messageDiv.className = 'message error';
+            }
+        });
+    </script>
+</body>
+</html>
+

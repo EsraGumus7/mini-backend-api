@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mini Server - API Test</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>🚀 Mini Server API</h1>
+        <p class="subtitle">Backend API Test Uygulaması</p>
+        
+        <div class="button-group">
+            <button id="loginBtn" class="btn btn-primary">
+                Giriş Yap
+            </button>
+            <button id="registerBtn" class="btn btn-secondary">
+                Kayıt Ol
+            </button>
+            <button id="itemsBtn" class="btn btn-info">
+                Öğeleri Gör
+            </button>
+        </div>
+
+        <div class="info-box">
+            <p><strong>API URL:</strong> <span id="apiUrl">http://localhost:3000</span></p>
+            <p><strong>Durum:</strong> <span id="status">Bağlantı kontrol ediliyor...</span></p>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+    <script>
+        // Buton event listener'ları
+        document.getElementById('loginBtn').addEventListener('click', () => {
+            window.location.href = 'login.html';
+        });
+        
+        document.getElementById('registerBtn').addEventListener('click', () => {
+            window.location.href = 'register.html';
+        });
+        
+        document.getElementById('itemsBtn').addEventListener('click', () => {
+            window.location.href = 'items.html';
+        });
+        
+        // API durumunu kontrol et
+        checkApiStatus();
+        
+        async function checkApiStatus() {
+            try {
+                const response = await fetch('http://localhost:3000/api/health');
+                const data = await response.json();
+                document.getElementById('status').textContent = '✅ Bağlı';
+                document.getElementById('status').style.color = '#4CAF50';
+            } catch (error) {
+                document.getElementById('status').textContent = '❌ Bağlantı hatası';
+                document.getElementById('status').style.color = '#f44336';
+            }
+        }
+    </script>
+</body>
+</html>
+

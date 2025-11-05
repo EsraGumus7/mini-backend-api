@@ -1,265 +1,143 @@
-# Mini Backend API Sunucusu
+# 🚀 Mini Backend API Sunucusu
 
-Node.js + Express + MongoDB ile geliştirilmiş REST API sunucusu. Kullanıcı yönetimi, JWT kimlik doğrulama ve CRUD işlemleri içerir.
+Modern REST API sunucusu - Node.js, Express ve MongoDB ile geliştirilmiş. JWT kimlik doğrulama, CRUD işlemleri ve production-ready özellikler içerir.
 
-## 🚀 Özellikler
+[![Node.js](https://img.shields.io/badge/Node.js-18+-green)](https://nodejs.org/)
+[![Express](https://img.shields.io/badge/Express-4.18-blue)](https://expressjs.com/)
+[![MongoDB](https://img.shields.io/badge/MongoDB-Atlas-success)](https://www.mongodb.com/)
 
-- ✅ Kullanıcı kayıt ve giriş (Register & Login)
-- ✅ JWT ile kimlik doğrulama (Authentication)
-- ✅ CRUD işlemleri (Create, Read, Update, Delete)
-- ✅ MongoDB veritabanı entegrasyonu
-- ✅ Protected routes (Token ile korumalı endpoint'ler)
-- ✅ Kullanıcı profili endpoint'i
-- ✅ Input validation (express-validator)
-- ✅ CORS desteği
-- ✅ Güvenlik (Helmet.js)
-- ✅ Rate limiting
-- ✅ Pagination (sayfalama)
+## ✨ Özellikler
 
-## 📦 Kullanılan Teknolojiler
+- 🔐 **Kullanıcı Yönetimi** - Register, Login, JWT Authentication
+- 📝 **CRUD İşlemleri** - Create, Read, Update, Delete
+- 🛡️ **Güvenlik** - Helmet.js, Rate Limiting, Input Validation
+- 📊 **Veritabanı** - MongoDB Atlas entegrasyonu
+- 📄 **Pagination** - Sayfalama desteği
+- 🌐 **CORS** - Cross-Origin Resource Sharing
+- 📱 **Web Frontend** - Mobil uyumlu test arayüzü
 
-- **Node.js** - JavaScript runtime
-- **Express.js** - Web framework
-- **MongoDB** - Veritabanı (MongoDB Atlas)
-- **Mongoose** - MongoDB ODM
-- **JWT** (jsonwebtoken) - Token tabanlı kimlik doğrulama
-- **bcrypt** - Şifre hash'leme
-- **dotenv** - Ortam değişkenleri yönetimi
-- **express-validator** - Input validation
-- **cors** - Cross-Origin Resource Sharing
-- **helmet** - Güvenlik header'ları
-- **express-rate-limit** - Rate limiting
+## 🛠️ Teknolojiler
 
-## 📋 Gereksinimler
+**Backend:**
+- Node.js + Express.js
+- MongoDB + Mongoose
+- JWT (jsonwebtoken)
+- bcrypt (şifre hash'leme)
 
-- Node.js (v14 veya üzeri)
-- MongoDB Atlas hesabı (ücretsiz)
-- npm veya yarn
+**Güvenlik & Validation:**
+- Helmet.js
+- express-validator
+- express-rate-limit
+- CORS
 
-## 🔧 Kurulum
+## 📸 Test Ekran Görüntüleri
 
-1. **Projeyi klonla veya indir**
+### Postman Testleri
+
+| Endpoint | Test |
+|----------|------|
+| Health Check | ![Health Check](screenshots/health-check.png) |
+| Register | ![Register](screenshots/register.png) |
+| Login | ![Login](screenshots/login.png) |
+| Get Items | ![Get Items](screenshots/get-all-items.png) |
+| Create Item | ![Create Item](screenshots/create-item.png) |
+| User Profile | ![User Profile](screenshots/user-profile.png) |
+
+### Web Uygulaması Testleri
+
+**Mobil Uyumlu Web Arayüzü:**
+![Web Test](screenshots/web-test.png)
+
+**Terminal Test Sonuçları:**
+![Terminal Test](screenshots/web-terminal-test.png)
+
+## 🚀 Hızlı Başlangıç
+
 ```bash
-git clone <repo-url>
+# 1. Repository'yi klonla
+git clone https://github.com/EsraGumus7/mini-server.git
 cd mini-server
-```
 
-2. **Paketleri yükle**
-```bash
+# 2. Paketleri yükle
 npm install
-```
 
-3. **.env dosyasını oluştur**
-```bash
+# 3. .env dosyasını oluştur
 cp env.example .env
-```
 
-4. **.env dosyasını düzenle**
-```env
-PORT=3000
-JWT_SECRET=your-super-secret-key-change-this-in-production
-JWT_EXPIRES_IN=24h
-MONGODB_URI=mongodb+srv://username:password@cluster.mongodb.net/mini-server
-```
+# 4. .env dosyasını düzenle (MongoDB URI ekle)
+nano .env
 
-5. **Sunucuyu başlat**
-```bash
+# 5. Sunucuyu başlat
 npm start
 ```
 
 Sunucu `http://localhost:3000` adresinde çalışacaktır.
 
-## 📸 Test Ekran Görüntüleri
-
-Aşağıda Postman ile yapılan test örnekleri yer almaktadır:
-
-### 1. Sunucu Durumu Kontrolü
-![Health Check](screenshots/health-check.png)
-- Endpoint: `GET /`
-- Status: `200 OK`
-
-### 2. Kullanıcı Kaydı (Register)
-![Register](screenshots/register.png)
-- Endpoint: `POST /api/auth/register`
-- Status: `201 Created`
-- Yanıt: Kullanıcı bilgileri ve JWT token
-
-### 3. Kullanıcı Girişi (Login)
-![Login](screenshots/login.png)
-- Endpoint: `POST /api/auth/login`
-- Status: `200 OK`
-- Yanıt: Kullanıcı bilgileri ve JWT token
-
-### 4. Tüm Öğeleri Listele
-![Get All Items](screenshots/get-all-items.png)
-- Endpoint: `GET /api/items`
-- Status: `200 OK`
-- Yanıt: Öğe listesi
-
-### 5. Yeni Öğe Oluştur (Protected)
-![Create Item](screenshots/create-item.png)
-- Endpoint: `POST /api/items`
-- Authorization: Bearer Token
-- Status: `201 Created`
-- Yanıt: Oluşturulan öğe bilgileri
-
-### 6. Kullanıcı Profili
-![User Profile](screenshots/user-profile.png)
-- Endpoint: `GET /api/users/profile`
-- Authorization: Bearer Token
-- Status: `200 OK`
-- Yanıt: Kullanıcı profil bilgileri
-
-**Not:** Ekran görüntülerini `screenshots/` klasörüne ekleyin ve dosya adlarını yukarıdaki gibi kullanın.
-
 ## 📚 API Endpoint'leri
 
 ### Authentication
-
-#### Register (Kullanıcı Kaydı)
-```
-POST /api/auth/register
-Content-Type: application/json
-
-{
-  "username": "testuser",
-  "email": "test@example.com",
-  "password": "123456"
-}
-```
-
-#### Login (Kullanıcı Girişi)
-```
-POST /api/auth/login
-Content-Type: application/json
-
-{
-  "email": "test@example.com",
-  "password": "123456"
-}
-```
+- `POST /api/auth/register` - Kullanıcı kaydı
+- `POST /api/auth/login` - Kullanıcı girişi
 
 ### Users
-
-#### Get Profile (Kullanıcı Profili)
-```
-GET /api/users/profile
-Authorization: Bearer <token>
-```
+- `GET /api/users/profile` - Kullanıcı profili (🔒 Protected)
 
 ### Items
+- `GET /api/items?page=1&limit=10` - Tüm öğeler (Pagination)
+- `GET /api/items/:id` - Tek öğe getir
+- `POST /api/items` - Yeni öğe oluştur (🔒 Protected)
+- `PUT /api/items/:id` - Öğe güncelle (🔒 Protected)
+- `DELETE /api/items/:id` - Öğe sil (🔒 Protected)
 
-#### Get All Items (Tüm Öğeleri Listele)
-```
-GET /api/items?page=1&limit=10
-```
-Query Parameters:
-- `page` (optional): Sayfa numarası (varsayılan: 1)
-- `limit` (optional): Sayfa başına öğe sayısı (varsayılan: 10)
+**🔒 Protected:** Bearer Token gerektirir
 
-#### Get Item by ID (Tek Öğe Getir)
-```
-GET /api/items/:id
-```
+## 🌐 Web Arayüzü
 
-#### Create Item (Yeni Öğe Oluştur) - Protected
-```
-POST /api/items
-Authorization: Bearer <token>
-Content-Type: application/json
+Proje, mobil uyumlu bir web arayüzü içerir. Sunucu başladıktan sonra:
 
-{
-  "title": "İlk görevim",
-  "description": "Bu benim ilk görevim"
-}
-```
-
-#### Update Item (Öğe Güncelle) - Protected
-```
-PUT /api/items/:id
-Authorization: Bearer <token>
-Content-Type: application/json
-
-{
-  "title": "Güncellenmiş başlık",
-  "description": "Güncellenmiş açıklama",
-  "isCompleted": true
-}
-```
-
-#### Delete Item (Öğe Sil) - Protected
-```
-DELETE /api/items/:id
-Authorization: Bearer <token>
-```
-
-## 🔐 Token Kullanımı
-
-Protected endpoint'ler için token gerekir. Login veya Register işleminden sonra dönen `token` değerini kullan:
-
-**Postman'de:**
-- Authorization sekmesi → Type: `Bearer Token` → Token'ı yapıştır
-
-**cURL'de:**
-```bash
-curl -H "Authorization: Bearer <token>" http://localhost:3000/api/items
-```
+- **Ana Sayfa:** `http://localhost:3000`
+- **Login:** `http://localhost:3000/login.html`
+- **Register:** `http://localhost:3000/register.html`
+- **Items:** `http://localhost:3000/items.html`
 
 ## 📁 Proje Yapısı
 
 ```
 mini-server/
 ├── src/
-│   ├── config/
-│   │   └── database.js          # MongoDB bağlantısı
-│   ├── controllers/
-│   │   ├── authController.js    # Auth iş mantığı
-│   │   ├── itemController.js    # Item CRUD iş mantığı
-│   │   └── userController.js    # User iş mantığı
-│   ├── middleware/
-│   │   ├── authMiddleware.js    # JWT doğrulama
-│   │   └── errorHandler.js      # Hata yönetimi
-│   ├── models/
-│   │   ├── User.js              # User modeli
-│   │   └── Item.js              # Item modeli
-│   ├── routes/
-│   │   ├── auth.js              # Auth routes
-│   │   ├── items.js             # Item routes
-│   │   └── users.js             # User routes
-│   └── utils/
-│       └── jwt.js                # JWT utilities
-├── .env                          # Ortam değişkenleri
-├── .env.example                  # .env şablonu
-├── .gitignore
-├── package.json
-├── README.md
-└── server.js                      # Ana sunucu dosyası
+│   ├── config/          # MongoDB bağlantısı
+│   ├── controllers/     # İş mantığı
+│   ├── middleware/      # Auth, Validation, Error handling
+│   ├── models/          # Mongoose modelleri
+│   ├── routes/          # API endpoint'leri
+│   └── utils/           # JWT utilities
+├── frontend/            # Web arayüzü
+├── screenshots/         # Test ekran görüntüleri
+└── server.js            # Ana sunucu dosyası
 ```
 
-## 🧪 Test
+## 🔧 Geliştirme
 
-Postman veya benzeri bir API test aracı ile endpoint'leri test edebilirsin.
+```bash
+# Development mode
+npm start
 
-### Örnek Test Senaryosu:
-
-1. **Register** → Kullanıcı kaydı yap
-2. **Login** → Token al
-3. **Create Item** → Token ile yeni öğe oluştur
-4. **Get All Items** → Tüm öğeleri listele
-5. **Update Item** → Token ile öğe güncelle
-6. **Delete Item** → Token ile öğe sil
+# Environment variables
+PORT=3000
+JWT_SECRET=your-secret-key
+MONGODB_URI=mongodb+srv://...
+```
 
 ## 📝 Notlar
 
-- `.env` dosyasındaki `JWT_SECRET` değerini güçlü bir anahtarla değiştirin
-- MongoDB Atlas'ta Network Access ayarlarını yapılandırın (IP izinleri)
 - Production ortamında `.env` dosyasını git'e eklemeyin
+- `JWT_SECRET` değerini güçlü bir anahtarla değiştirin
+- MongoDB Atlas Network Access ayarlarını yapılandırın
 
 ## 📄 Lisans
 
-ISC
-
-## 👨‍💻 Geliştirici
+ISC License
 
 Backend geliştirme ve REST API öğrenme projesi.
 
+⭐ **Star** vermeyi unutmayın! Backend geliştirme ve REST API öğrenme projesi.

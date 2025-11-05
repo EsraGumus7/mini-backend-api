@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Öğeler - Mini Server</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>📋 Öğeler</h1>
+            <button onclick="logout()" class="btn btn-small">Çıkış Yap</button>
+        </div>
+        
+        <div class="card">
+            <h2>Yeni Öğe Ekle</h2>
+            <form id="itemForm">
+                <div class="form-group">
+                    <label for="title">Başlık</label>
+                    <input type="text" id="title" required placeholder="Öğe başlığı">
+                </div>
+                
+                <div class="form-group">
+                    <label for="description">Açıklama</label>
+                    <textarea id="description" rows="3" placeholder="Açıklama (opsiyonel)"></textarea>
+                </div>
+                
+                <button type="submit" class="btn btn-primary btn-block">Ekle</button>
+            </form>
+            
+            <div id="message" class="message"></div>
+        </div>
+        
+        <div class="card">
+            <h2>Öğe Listesi</h2>
+            <button onclick="loadItems()" class="btn btn-secondary btn-block">Yenile</button>
+            <div id="itemsList" class="items-list">
+                <p class="loading">Yükleniyor...</p>
+            </div>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+    <script>
+        // Token kontrolü
+        const token = localStorage.getItem('token');
+        if (!token) {
+            alert('Lütfen önce giriş yapın!');
+            window.location.href = 'login.html';
+        }
+        
+        // Sayfa yüklendiğinde öğeleri getir
+        loadItems();
+        
+        // Yeni öğe ekleme formu
+        document.getElementById('itemForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            const title = document.getElementById('title').value;
+            const description = document.getElementById('description').value;
+            const messageDiv = document.getElementById('message');
+            
+            messageDiv.textContent = 'Ekleniyor...';
+            messageDiv.className = 'message info';
+            
+            try {
+                const response = await createItem(title, description);
+                if (response.success) {
+                    messageDiv.textContent = '✅ Öğe başarıyla eklendi!';
+                    messageDiv.className = 'message success';
+                    document.getElementById('itemForm').reset();
+                    loadItems();
+                }
+            } catch (error) {
+                messageDiv.textContent = '❌ ' + error.message;
+                messageDiv.className = 'message error';
+            }
+        });
+        
+        async function loadItems() {
+            const itemsList = document.getElementById('itemsList');
+            itemsList.innerHTML = '<p class="loading">Yükleniyor...</p>';
+            
+            try {
+                const items = await getAllItems();
+                if (items.success && items.data.length > 0) {
+                    itemsList.innerHTML = items.data.map(item => `
+                        <div class="item-card">
+                            <h3>${item.title}</h3>
+                            ${item.description ? `<p>${item.description}</p>` : ''}
+                            <div class="item-meta">
+                                <span class="user">👤 ${item.user?.username || 'Bilinmeyen'}</span>
+                                <span class="date">📅 ${new Date(item.createdAt).toLocaleDateString('tr-TR')}</span>
+                                ${item.isCompleted ? '<span class="badge">✓ Tamamlandı</span>' : ''}
+                            </div>
+                        </div>
+                    `).join('');
+                } else {
+                    itemsList.innerHTML = '<p class="empty">Henüz öğe yok. İlk öğeyi ekleyin!</p>';
+                }
+            } catch (error) {
+                itemsList.innerHTML = `<p class="error">❌ ${error.message}</p>`;
+            }
+        }
+        
+        function logout() {
+            localStorage.removeItem('token');
+            localStorage.removeItem('user');
+            window.location.href = 'index.html';
+        }
+    </script>
+</body>
+</html>
+

@@ -12,7 +12,9 @@ const PORT = process.env.PORT || 3000;
 connectDB();
 
 // Güvenlik Middleware'leri
-app.use(helmet()); // Güvenlik header'ları
+app.use(helmet({
+  contentSecurityPolicy: false // Frontend için CSP'yi devre dışı bırak
+})); // Güvenlik header'ları
 app.use(cors()); // CORS desteği
 
 // Rate Limiting
@@ -32,9 +34,9 @@ app.use((req, res, next) => {
   next();
 });
 
-// Routes
+// API Routes (önce API route'ları, sonra static files)
 // Health check endpoint
-app.get('/', (req, res) => {
+app.get('/api/health', (req, res) => {
   res.json({
     message: 'Mini Backend API Sunucusu çalışıyor!',
     status: 'OK',
@@ -50,6 +52,9 @@ app.get('/', (req, res) => {
 app.use('/api/auth', require('./src/routes/auth'));
 app.use('/api/items', require('./src/routes/items'));
 app.use('/api/users', require('./src/routes/users'));
+
+// Frontend dosyalarını servis et (en sona)
+app.use(express.static('frontend'));
 
 // 404 Handler - Route bulunamadığında
 app.use((req, res) => {
