@@ -10,6 +10,11 @@ Node.js + Express + MongoDB ile geliştirilmiş REST API sunucusu. Kullanıcı y
 - ✅ MongoDB veritabanı entegrasyonu
 - ✅ Protected routes (Token ile korumalı endpoint'ler)
 - ✅ Kullanıcı profili endpoint'i
+- ✅ Input validation (express-validator)
+- ✅ CORS desteği
+- ✅ Güvenlik (Helmet.js)
+- ✅ Rate limiting
+- ✅ Pagination (sayfalama)
 
 ## 📦 Kullanılan Teknolojiler
 
@@ -20,6 +25,10 @@ Node.js + Express + MongoDB ile geliştirilmiş REST API sunucusu. Kullanıcı y
 - **JWT** (jsonwebtoken) - Token tabanlı kimlik doğrulama
 - **bcrypt** - Şifre hash'leme
 - **dotenv** - Ortam değişkenleri yönetimi
+- **express-validator** - Input validation
+- **cors** - Cross-Origin Resource Sharing
+- **helmet** - Güvenlik header'ları
+- **express-rate-limit** - Rate limiting
 
 ## 📋 Gereksinimler
 
@@ -142,8 +151,11 @@ Authorization: Bearer <token>
 
 #### Get All Items (Tüm Öğeleri Listele)
 ```
-GET /api/items
+GET /api/items?page=1&limit=10
 ```
+Query Parameters:
+- `page` (optional): Sayfa numarası (varsayılan: 1)
+- `limit` (optional): Sayfa başına öğe sayısı (varsayılan: 10)
 
 #### Get Item by ID (Tek Öğe Getir)
 ```

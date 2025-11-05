@@ -3,16 +3,32 @@ const Item = require('../models/Item');
 /**
  * Tüm öğeleri listele
  * GET /api/items
+ * Query params: page, limit (pagination)
  */
 const getAllItems = async (req, res, next) => {
   try {
+    const page = parseInt(req.query.page) || 1;
+    const limit = parseInt(req.query.limit) || 10;
+    const skip = (page - 1) * limit;
+
     // Tüm öğeleri getir, kullanıcı bilgilerini de dahil et (populate)
     const items = await Item.find()
       .populate('user', 'username email') // User bilgilerini de getir
-      .sort({ createdAt: -1 }); // En yeni önce
+      .sort({ createdAt: -1 }) // En yeni önce
+      .skip(skip)
+      .limit(limit);
+
+    // Toplam sayı
+    const total = await Item.countDocuments();
 
     res.json({
       success: true,
+      pagination: {
+        page,
+        limit,
+        total,
+        pages: Math.ceil(total / limit)
+      },
       count: items.length,
       data: items
     });

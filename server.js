@@ -1,5 +1,8 @@
 require('dotenv').config();
 const express = require('express');
+const cors = require('cors');
+const helmet = require('helmet');
+const rateLimit = require('express-rate-limit');
 const connectDB = require('./src/config/database');
 
 const app = express();
@@ -7,6 +10,17 @@ const PORT = process.env.PORT || 3000;
 
 // MongoDB Bağlantısı
 connectDB();
+
+// Güvenlik Middleware'leri
+app.use(helmet()); // Güvenlik header'ları
+app.use(cors()); // CORS desteği
+
+// Rate Limiting
+const limiter = rateLimit({
+  windowMs: 15 * 60 * 1000, // 15 dakika
+  max: 100 // Her IP için 15 dakikada maksimum 100 istek
+});
+app.use('/api/', limiter);
 
 // Middleware'ler
 app.use(express.json()); // JSON body parser

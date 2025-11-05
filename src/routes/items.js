@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const itemController = require('../controllers/itemController');
 const authenticate = require('../middleware/authMiddleware');
+const { itemValidation } = require('../middleware/validation');
 
 /**
  * GET /api/items
@@ -19,13 +20,13 @@ router.get('/:id', itemController.getItemById);
  * POST /api/items
  * Yeni öğe oluştur (protected - token gerekli)
  */
-router.post('/', authenticate, itemController.createItem);
+router.post('/', authenticate, itemValidation, itemController.createItem);
 
 /**
  * PUT /api/items/:id
  * Öğe güncelle (protected - token gerekli + sadece kendi öğelerini)
  */
-router.put('/:id', authenticate, itemController.updateItem);
+router.put('/:id', authenticate, itemValidation, itemController.updateItem);
 
 /**
  * DELETE /api/items/:id
