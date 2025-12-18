@@ -34,63 +34,6 @@ A modern REST API server built with Node.js, Express, and MongoDB. Includes JWT 
 
 ## 📸 Test Screenshots
 
-
-## 📸 Test Screenshots
-
-### Postman Tests
-
-<table>
-<tr>
-<td align="center">
-Health Check<br>
-<img src="screenshots/health-check.png" alt="Health Check" width="250"/>
-</td>
-<td align="center">
-Register<br>
-<img src="screenshots/register.png" alt="Register" width="250"/>
-</td>
-</tr>
-<tr>
-<td align="center">
-Login<br>
-<img src="screenshots/login.png" alt="Login" width="250"/>
-</td>
-<td align="center">
-Get Items<br>
-<img src="screenshots/get-all-items.png" alt="Get Items" width="250"/>
-</td>
-</tr>
-<tr>
-<td align="center">
-Create Item<br>
-<img src="screenshots/create-item.png" alt="Create Item" width="250"/>
-</td>
-<td align="center">
-User Profile<br>
-<img src="screenshots/user-profile.png" alt="User Profile" width="250"/>
-</td>
-</tr>
-</table>
-
-### Web Interface Tests
-
-<table>
-<tr>
-<td align="center">
-Web Test<br>
-<img src="screenshots/web-test.png" alt="Web Test" width="250"/>
-</td>
-<td align="center">
-Terminal Test<br>
-<img src="screenshots/web-terminal-test.png" alt="Terminal Test" width="250"/>
-</td>
-</tr>
-</table>
-
-
-
-
-
 ### Postman Tests
 
 | Endpoint | Test |
